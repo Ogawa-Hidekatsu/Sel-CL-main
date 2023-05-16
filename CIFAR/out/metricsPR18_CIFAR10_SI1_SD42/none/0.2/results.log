@@ -1,0 +1,225 @@
+Namespace(DA='complex', alpha=0.5, alpha_m=1.0, alpha_moving=0.999, aprox=1, batch_size=128, beta=0.25, cuda_dev=0, dataset='CIFAR-10', download=True, epoch=250, experiment_name='CIFAR10', headType='Linear', initial_epoch=1, k_val=250, lambda_c=1.0, lambda_s=0.01, low_dim=128, lr=0.1, lr_decay_epochs=[125, 200], lr_decay_rate=0.1, lr_scheduler='step', lr_warmup_epoch=5, lr_warmup_multiplier=100, momentum=0.9, network='PR18', noise_ratio=0.2, noise_type='none', num_classes=10, out='./out', queue_per_class=1000, seed_dataset=42, seed_initialization=1, sup_queue_begin=3, sup_queue_use=1, sup_t=0.1, test_batch_size=100, train_root='./dataset', uns_queue_k=10000, uns_t=0.1, warmup_epoch=1, warmup_way='uns', wd=0.0001)
+Files already downloaded and verified
+No noise
+Files already downloaded and verified
+############# Data loaded #############
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'")
+=================>     CIFAR10 0.2
+Train Epoch: 1 [1920/50000 (4%)]	Loss: 0.000000, Learning rate: 0.001760
+Train Epoch: 1 [3840/50000 (8%)]	Loss: 0.000000, Learning rate: 0.002519
+Train Epoch: 1 [5760/50000 (12%)]	Loss: 0.000000, Learning rate: 0.003279
+Train Epoch: 1 [7680/50000 (15%)]	Loss: 0.000000, Learning rate: 0.004038
+Train Epoch: 1 [9600/50000 (19%)]	Loss: 0.000000, Learning rate: 0.004798
+Train Epoch: 1 [11520/50000 (23%)]	Loss: 0.000000, Learning rate: 0.005558
+Train Epoch: 1 [13440/50000 (27%)]	Loss: 0.000000, Learning rate: 0.006317
+Train Epoch: 1 [15360/50000 (31%)]	Loss: 0.000000, Learning rate: 0.007077
+Train Epoch: 1 [17280/50000 (35%)]	Loss: 0.000000, Learning rate: 0.007836
+Train Epoch: 1 [19200/50000 (38%)]	Loss: 0.000000, Learning rate: 0.008596
+Train Epoch: 1 [21120/50000 (42%)]	Loss: 0.000000, Learning rate: 0.009355
+Train Epoch: 1 [23040/50000 (46%)]	Loss: 0.000000, Learning rate: 0.010115
+Train Epoch: 1 [24960/50000 (50%)]	Loss: 0.000000, Learning rate: 0.010875
+Train Epoch: 1 [26880/50000 (54%)]	Loss: 0.000000, Learning rate: 0.011634
+Train Epoch: 1 [28800/50000 (58%)]	Loss: 0.000000, Learning rate: 0.012394
+Train Epoch: 1 [30720/50000 (61%)]	Loss: 0.000000, Learning rate: 0.013153
+Train Epoch: 1 [32640/50000 (65%)]	Loss: 0.000000, Learning rate: 0.013913
+Train Epoch: 1 [34560/50000 (69%)]	Loss: 0.000000, Learning rate: 0.014673
+Train Epoch: 1 [36480/50000 (73%)]	Loss: 0.000000, Learning rate: 0.015432
+Train Epoch: 1 [38400/50000 (77%)]	Loss: 0.000000, Learning rate: 0.016192
+Train Epoch: 1 [40320/50000 (81%)]	Loss: 0.000000, Learning rate: 0.016951
+Train Epoch: 1 [42240/50000 (84%)]	Loss: 0.000000, Learning rate: 0.017711
+Train Epoch: 1 [44160/50000 (88%)]	Loss: 0.000000, Learning rate: 0.018471
+Train Epoch: 1 [46080/50000 (92%)]	Loss: 0.000000, Learning rate: 0.019230
+Train Epoch: 1 [48000/50000 (96%)]	Loss: 0.000000, Learning rate: 0.019990
+Train Epoch: 1 [49920/50000 (100%)]	Loss: 0.000000, Learning rate: 0.020749
+train_uns_loss 8.111322457122803
+train time 21.795419216156006
+######## Pair-wise selection ########
+Namespace(DA='complex', alpha=0.5, alpha_m=1.0, alpha_moving=0.999, aprox=1, batch_size=128, beta=0.25, cuda_dev=0, dataset='CIFAR-10', download=True, epoch=250, experiment_name='CIFAR10', headType='Linear', initial_epoch=1, k_val=250, lambda_c=1.0, lambda_s=0.01, low_dim=128, lr=0.1, lr_decay_epochs=[125, 200], lr_decay_rate=0.1, lr_scheduler='step', lr_warmup_epoch=5, lr_warmup_multiplier=100, momentum=0.9, network='PR18', noise_ratio=0.2, noise_type='none', num_classes=10, out='./out', queue_per_class=1000, seed_dataset=42, seed_initialization=1, sup_queue_begin=3, sup_queue_use=1, sup_t=0.1, test_batch_size=100, train_root='./dataset', uns_queue_k=10000, uns_t=0.1, warmup_epoch=1, warmup_way="'uns'", wd=0.0001)
+Files already downloaded and verified
+No noise
+Files already downloaded and verified
+############# Data loaded #############
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'")
+=================>     CIFAR10 0.2
+Train Epoch: 1 [1920/50000 (4%)]	Loss: 0.000000, Learning rate: 0.001760
+Train Epoch: 1 [3840/50000 (8%)]	Loss: 0.000000, Learning rate: 0.002519
+Train Epoch: 1 [5760/50000 (12%)]	Loss: 0.000000, Learning rate: 0.003279
+Train Epoch: 1 [7680/50000 (15%)]	Loss: 0.000000, Learning rate: 0.004038
+Train Epoch: 1 [9600/50000 (19%)]	Loss: 0.000000, Learning rate: 0.004798
+Train Epoch: 1 [11520/50000 (23%)]	Loss: 0.000000, Learning rate: 0.005558
+Train Epoch: 1 [13440/50000 (27%)]	Loss: 0.000000, Learning rate: 0.006317
+Train Epoch: 1 [15360/50000 (31%)]	Loss: 0.000000, Learning rate: 0.007077
+Train Epoch: 1 [17280/50000 (35%)]	Loss: 0.000000, Learning rate: 0.007836
+Train Epoch: 1 [19200/50000 (38%)]	Loss: 0.000000, Learning rate: 0.008596
+Train Epoch: 1 [21120/50000 (42%)]	Loss: 0.000000, Learning rate: 0.009355
+Train Epoch: 1 [23040/50000 (46%)]	Loss: 0.000000, Learning rate: 0.010115
+Train Epoch: 1 [24960/50000 (50%)]	Loss: 0.000000, Learning rate: 0.010875
+Train Epoch: 1 [26880/50000 (54%)]	Loss: 0.000000, Learning rate: 0.011634
+Train Epoch: 1 [28800/50000 (58%)]	Loss: 0.000000, Learning rate: 0.012394
+Train Epoch: 1 [30720/50000 (61%)]	Loss: 0.000000, Learning rate: 0.013153
+Train Epoch: 1 [32640/50000 (65%)]	Loss: 0.000000, Learning rate: 0.013913
+Train Epoch: 1 [34560/50000 (69%)]	Loss: 0.000000, Learning rate: 0.014673
+Train Epoch: 1 [36480/50000 (73%)]	Loss: 0.000000, Learning rate: 0.015432
+Train Epoch: 1 [38400/50000 (77%)]	Loss: 0.000000, Learning rate: 0.016192
+Train Epoch: 1 [40320/50000 (81%)]	Loss: 0.000000, Learning rate: 0.016951
+Train Epoch: 1 [42240/50000 (84%)]	Loss: 0.000000, Learning rate: 0.017711
+Train Epoch: 1 [44160/50000 (88%)]	Loss: 0.000000, Learning rate: 0.018471
+Train Epoch: 1 [46080/50000 (92%)]	Loss: 0.000000, Learning rate: 0.019230
+Train Epoch: 1 [48000/50000 (96%)]	Loss: 0.000000, Learning rate: 0.019990
+Train Epoch: 1 [49920/50000 (100%)]	Loss: 0.000000, Learning rate: 0.020749
+train_loss_sup 5.426430371398926 train_class_loss 1.9543401749801637
+train time 63.81473517417908
+######## Pair-wise selection ########
+Namespace(DA='complex', alpha=0.5, alpha_m=1.0, alpha_moving=0.999, aprox=1, batch_size=128, beta=0.25, cuda_dev=0, dataset='CIFAR-10', download=True, epoch=250, experiment_name='CIFAR10', headType='Linear', initial_epoch=1, k_val=250, lambda_c=1.0, lambda_s=0.01, low_dim=128, lr=0.1, lr_decay_epochs=[125, 200], lr_decay_rate=0.1, lr_scheduler='step', lr_warmup_epoch=5, lr_warmup_multiplier=100, momentum=0.9, network='PR18', noise_ratio=0.2, noise_type='none', num_classes=10, out='./out', queue_per_class=1000, seed_dataset=42, seed_initialization=1, sup_queue_begin=3, sup_queue_use=1, sup_t=0.1, test_batch_size=100, train_root='./dataset', uns_queue_k=10000, uns_t=0.1, warmup_epoch=1, warmup_way="'uns'", wd=0.0001)
+Files already downloaded and verified
+No noise
+Namespace(DA='complex', alpha=0.5, alpha_m=1.0, alpha_moving=0.999, aprox=1, batch_size=128, beta=0.25, cuda_dev=0, dataset='CIFAR-10', download=True, epoch=250, experiment_name='CIFAR10', headType='Linear', initial_epoch=1, k_val=250, lambda_c=1.0, lambda_s=0.01, low_dim=128, lr=0.1, lr_decay_epochs=[125, 200], lr_decay_rate=0.1, lr_scheduler='step', lr_warmup_epoch=5, lr_warmup_multiplier=100, momentum=0.9, network='PR18', noise_ratio=0.2, noise_type='none', num_classes=10, out='./out', queue_per_class=1000, seed_dataset=42, seed_initialization=1, sup_queue_begin=3, sup_queue_use=1, sup_t=0.1, test_batch_size=100, train_root='./dataset', uns_queue_k=10000, uns_t=0.1, warmup_epoch=1, warmup_way="'uns'", wd=0.0001)
+Files already downloaded and verified
+No noise
+Namespace(DA='complex', alpha=0.5, alpha_m=1.0, alpha_moving=0.999, aprox=1, batch_size=128, beta=0.25, cuda_dev=0, dataset='CIFAR-10', download=True, epoch=250, experiment_name='CIFAR10', headType='Linear', initial_epoch=1, k_val=250, lambda_c=1.0, lambda_s=0.01, low_dim=128, lr=0.1, lr_decay_epochs=[125, 200], lr_decay_rate=0.1, lr_scheduler='step', lr_warmup_epoch=5, lr_warmup_multiplier=100, momentum=0.9, network='PR18', noise_ratio=0.2, noise_type='none', num_classes=10, out='./out', queue_per_class=1000, seed_dataset=42, seed_initialization=1, sup_queue_begin=3, sup_queue_use=1, sup_t=0.1, test_batch_size=100, train_root='./dataset', uns_queue_k=10000, uns_t=0.1, warmup_epoch=1, warmup_way="'uns'", wd=0.0001)
+Files already downloaded and verified
+No noise
+Files already downloaded and verified
+############# Data loaded #############
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'")
+=================>     CIFAR10 0.2
+Train Epoch: 1 [1920/50000 (4%)]	Loss: 0.000000, Learning rate: 0.001760
+Train Epoch: 1 [3840/50000 (8%)]	Loss: 0.000000, Learning rate: 0.002519
+Train Epoch: 1 [5760/50000 (12%)]	Loss: 0.000000, Learning rate: 0.003279
+Train Epoch: 1 [7680/50000 (15%)]	Loss: 0.000000, Learning rate: 0.004038
+Train Epoch: 1 [9600/50000 (19%)]	Loss: 0.000000, Learning rate: 0.004798
+Train Epoch: 1 [11520/50000 (23%)]	Loss: 0.000000, Learning rate: 0.005558
+Train Epoch: 1 [13440/50000 (27%)]	Loss: 0.000000, Learning rate: 0.006317
+Train Epoch: 1 [15360/50000 (31%)]	Loss: 0.000000, Learning rate: 0.007077
+Train Epoch: 1 [17280/50000 (35%)]	Loss: 0.000000, Learning rate: 0.007836
+Train Epoch: 1 [19200/50000 (38%)]	Loss: 0.000000, Learning rate: 0.008596
+Train Epoch: 1 [21120/50000 (42%)]	Loss: 0.000000, Learning rate: 0.009355
+Train Epoch: 1 [23040/50000 (46%)]	Loss: 0.000000, Learning rate: 0.010115
+Train Epoch: 1 [24960/50000 (50%)]	Loss: 0.000000, Learning rate: 0.010875
+Train Epoch: 1 [26880/50000 (54%)]	Loss: 0.000000, Learning rate: 0.011634
+Train Epoch: 1 [28800/50000 (58%)]	Loss: 0.000000, Learning rate: 0.012394
+Train Epoch: 1 [30720/50000 (61%)]	Loss: 0.000000, Learning rate: 0.013153
+Train Epoch: 1 [32640/50000 (65%)]	Loss: 0.000000, Learning rate: 0.013913
+Train Epoch: 1 [34560/50000 (69%)]	Loss: 0.000000, Learning rate: 0.014673
+Train Epoch: 1 [36480/50000 (73%)]	Loss: 0.000000, Learning rate: 0.015432
+Train Epoch: 1 [38400/50000 (77%)]	Loss: 0.000000, Learning rate: 0.016192
+Train Epoch: 1 [40320/50000 (81%)]	Loss: 0.000000, Learning rate: 0.016951
+Train Epoch: 1 [42240/50000 (84%)]	Loss: 0.000000, Learning rate: 0.017711
+Train Epoch: 1 [44160/50000 (88%)]	Loss: 0.000000, Learning rate: 0.018471
+Train Epoch: 1 [46080/50000 (92%)]	Loss: 0.000000, Learning rate: 0.019230
+Train Epoch: 1 [48000/50000 (96%)]	Loss: 0.000000, Learning rate: 0.019990
+Train Epoch: 1 [49920/50000 (100%)]	Loss: 0.000000, Learning rate: 0.020749
+train_loss_sup 5.426430371398926 train_class_loss 1.9543401749801637
+train time 54.960455894470215
+######## Pair-wise selection ########
+Namespace(DA='complex', alpha=0.5, alpha_m=1.0, alpha_moving=0.999, aprox=1, batch_size=128, beta=0.25, cuda_dev=0, dataset='CIFAR-10', download=True, epoch=250, experiment_name='CIFAR10', headType='Linear', initial_epoch=1, k_val=250, lambda_c=1.0, lambda_s=0.01, low_dim=128, lr=0.1, lr_decay_epochs=[125, 200], lr_decay_rate=0.1, lr_scheduler='step', lr_warmup_epoch=5, lr_warmup_multiplier=100, momentum=0.9, network='PR18', noise_ratio=0.2, noise_type='none', num_classes=10, out='./out', queue_per_class=1000, seed_dataset=42, seed_initialization=1, sup_queue_begin=3, sup_queue_use=1, sup_t=0.1, test_batch_size=100, train_root='./dataset', uns_queue_k=10000, uns_t=0.1, warmup_epoch=1, warmup_way="'uns'", wd=0.0001)
+Files already downloaded and verified
+Files already downloaded and verified
+############# Data loaded #############
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'")
+=================>     CIFAR10 0.2
+Train Epoch: 1 [1920/50000 (4%)]	Loss: 0.000000, Learning rate: 0.001760
+Train Epoch: 1 [3840/50000 (8%)]	Loss: 0.000000, Learning rate: 0.002519
+Train Epoch: 1 [5760/50000 (12%)]	Loss: 0.000000, Learning rate: 0.003279
+Train Epoch: 1 [7680/50000 (15%)]	Loss: 0.000000, Learning rate: 0.004038
+Train Epoch: 1 [9600/50000 (19%)]	Loss: 0.000000, Learning rate: 0.004798
+Train Epoch: 1 [11520/50000 (23%)]	Loss: 0.000000, Learning rate: 0.005558
+Train Epoch: 1 [13440/50000 (27%)]	Loss: 0.000000, Learning rate: 0.006317
+Train Epoch: 1 [15360/50000 (31%)]	Loss: 0.000000, Learning rate: 0.007077
+Train Epoch: 1 [17280/50000 (35%)]	Loss: 0.000000, Learning rate: 0.007836
+Train Epoch: 1 [19200/50000 (38%)]	Loss: 0.000000, Learning rate: 0.008596
+Train Epoch: 1 [21120/50000 (42%)]	Loss: 0.000000, Learning rate: 0.009355
+Train Epoch: 1 [23040/50000 (46%)]	Loss: 0.000000, Learning rate: 0.010115
+Train Epoch: 1 [24960/50000 (50%)]	Loss: 0.000000, Learning rate: 0.010875
+Train Epoch: 1 [26880/50000 (54%)]	Loss: 0.000000, Learning rate: 0.011634
+Train Epoch: 1 [28800/50000 (58%)]	Loss: 0.000000, Learning rate: 0.012394
+Train Epoch: 1 [30720/50000 (61%)]	Loss: 0.000000, Learning rate: 0.013153
+Train Epoch: 1 [32640/50000 (65%)]	Loss: 0.000000, Learning rate: 0.013913
+Train Epoch: 1 [34560/50000 (69%)]	Loss: 0.000000, Learning rate: 0.014673
+Train Epoch: 1 [36480/50000 (73%)]	Loss: 0.000000, Learning rate: 0.015432
+Train Epoch: 1 [38400/50000 (77%)]	Loss: 0.000000, Learning rate: 0.016192
+Train Epoch: 1 [40320/50000 (81%)]	Loss: 0.000000, Learning rate: 0.016951
+Train Epoch: 1 [42240/50000 (84%)]	Loss: 0.000000, Learning rate: 0.017711
+Train Epoch: 1 [44160/50000 (88%)]	Loss: 0.000000, Learning rate: 0.018471
+Train Epoch: 1 [46080/50000 (92%)]	Loss: 0.000000, Learning rate: 0.019230
+Train Epoch: 1 [48000/50000 (96%)]	Loss: 0.000000, Learning rate: 0.019990
+Train Epoch: 1 [49920/50000 (100%)]	Loss: 0.000000, Learning rate: 0.020749
+train_loss_sup 5.426430371398926 train_class_loss 1.9543401749801637
+train time 55.55891704559326
+######## Pair-wise selection ########
