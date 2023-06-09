@@ -3,6 +3,7 @@ from .poisoned_dataset import CIFAR10Poison, MNISTPoison
 from torchvision import datasets, transforms
 import torch 
 import os 
+import numpy as np
 
 def build_init_data(dataname, download, dataset_path):
     if dataname == 'MNIST':
@@ -16,10 +17,10 @@ def build_init_data(dataname, download, dataset_path):
 def build_poisoned_training_set(is_train, args, transform_train, transform_test):
     transform, detransform = build_transform(args.dataset)
     print("Transform = ", transform)
-
     if args.dataset == 'CIFAR10' or 'CIFIA-10':
         trainset = CIFAR10Poison(args, args.data_path, train=is_train, download=True, transform=transform_train, target_transform=transform_test)
         nb_classes = 10
+        trainset.random_in_noise()
     elif args.dataset == 'MNIST':
         trainset = MNISTPoison(args, args.data_path, train=is_train, download=True, transform=transform_test)
         nb_classes = 10
@@ -71,3 +72,5 @@ def build_transform(dataset):
     detransform = transforms.Normalize((-mean / std).tolist(), (1.0 / std).tolist()) # you can use detransform to recover the image
     
     return transform, detransform
+
+

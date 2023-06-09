@@ -42,39 +42,39 @@ class CIFAR10Poison(tv.datasets.CIFAR10):
         self.poi_indices = random.sample(indices, k=int(len(indices) * self.poisoning_rate))
         print(f"Poison {len(self.poi_indices)} over {len(indices)} samples ( poisoning rate {self.poisoning_rate})")
 
-        # self.root = os.path.expanduser(args.train_root)
-        # self.transform = transform
-        # self.target_transform = target_transform
-        # self.train = train  # Training set or validation set
-        #
-        # self.args = args
-        # if sample_indexes is not None:
-        #     self.data = self.data[sample_indexes]
-        #     self.targets = list(np.asarray(self.targets)[sample_indexes])
-        #
-        # self.num_classes = self.args.num_classes
-        # self.in_index = []
-        # self.out_index = []
-        # self.noisy_indexes = []
-        # self.clean_indexes = []
-        # self.clean_labels = []
+        self.root = os.path.expanduser(args.train_root)
+        self.transform = transform
+        self.target_transform = target_transform
+        self.train = train  # Training set or validation set
+
+        self.args = args
+        if sample_indexes is not None:
+            self.data = self.data[sample_indexes]
+            self.targets = list(np.asarray(self.targets)[sample_indexes])
+
+        self.num_classes = self.args.num_classes
+        self.in_index = []
+        self.out_index = []
+        self.noisy_indexes = []
+        self.clean_indexes = []
+        self.clean_labels = []
         self.noisy_labels = []
-        # self.out_data = []
-        # self.out_labels = []
-        # self.soft_labels = []
-        # self.labelsNoisyOriginal = []
-        # self._num = []
-        # self._count = 1
-        # self.prediction = []
-        # self.confusion_matrix_in = np.array([])
-        # self.confusion_matrix_out = np.array([])
-        # self.labeled_idx = []
-        # self.unlabeled_idx = []
+        self.out_data = []
+        self.out_labels = []
+        self.soft_labels = []
+        self.labelsNoisyOriginal = []
+        self._num = []
+        self._count = 1
+        self.prediction = []
+        self.confusion_matrix_in = np.array([])
+        self.confusion_matrix_out = np.array([])
+        self.labeled_idx = []
+        self.unlabeled_idx = []
         #
         #
-        # # From in ou split function:
-        # self.soft_labels = np.zeros((len(self.targets), self.num_classes), dtype=np.float32)
-        # self._num = int(len(self.targets) * self.args.noise_ratio)
+        # From in ou split function:
+        self.soft_labels = np.zeros((len(self.targets), self.num_classes), dtype=np.float32)
+        self._num = int(len(self.targets) * self.args.noise_ratio)
 
     def __shape_info__(self):
         return self.data.shape[1:]
@@ -112,6 +112,39 @@ class CIFAR10Poison(tv.datasets.CIFAR10):
                 target = self.target_transform(target)
 
             return img, target
+
+    ################# Random in-distribution noise #########################
+    def random_in_noise(self):
+        # to be more equal, every category can be processed separately
+        np.random.seed(self.args.seed_dataset)
+        idxes = np.random.permutation(len(self.targets))
+        clean_labels = np.copy(self.targets)
+        noisy_indexes = idxes[0:0]
+        clean_indexes = idxes[0:self._num]
+        for i in range(len(idxes)):
+            if i < self._num:
+                self.soft_labels[idxes[i]][
+                    self.targets[idxes[i]]] = 0  ## Remove soft-label created during label mapping
+                # targets[idxes[i]] -> another category
+                label_sym = np.random.randint(self.num_classes, dtype=np.int32)
+                # while(label_sym==self.targets[idxes[i]]):#To exclude the original label
+                # label_sym = np.random.randint(self.num_classes, dtype=np.int32)
+                self.targets[idxes[i]] = label_sym
+            self.soft_labels[idxes[i]][self.targets[idxes[i]]] = 1
+
+        self.targets = np.asarray(self.targets, dtype=np.long)
+        self.noisy_labels = np.copy(self.targets)
+        self.noisy_indexes = noisy_indexes
+        self.clean_labels = clean_labels
+        self.clean_indexes = clean_indexes
+        self.confusion_matrix_in = (np.ones((self.args.num_classes, self.args.num_classes)) - np.identity(
+            self.args.num_classes)) \
+                                   * (self.args.noise_ratio / (self.num_classes - 1)) + \
+                                   np.identity(self.args.num_classes) * (1 - self.args.noise_ratio)
+        print('clean_num', sum(self.noisy_labels == self.clean_labels))
+
+    ##########################################################################
+
 
 class MNISTPoison(MNIST):
 

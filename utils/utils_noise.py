@@ -37,7 +37,7 @@ def train_sel(args, scheduler,model,model_ema,contrast,queue,device, train_loade
         model.zero_grad()
 
         ##compute uns-cl loss
-        _,feat_q = model(img1)
+        _, feat_q = model(img1)
 
         with torch.no_grad():
             _, feat_k= model_ema(img2)
@@ -512,9 +512,10 @@ def pair_selection(args, net, device, trainloader, testloader, epoch):
         
         selected_pairs = noisy_pairs[index_selected.unsqueeze(1).expand(total_selected_num,total_selected_num),index_selected.unsqueeze(0).expand(total_selected_num,total_selected_num)].clone()
         temp_graph = smiliar_graph_all[index_selected.unsqueeze(1).expand(total_selected_num,total_selected_num),index_selected.unsqueeze(0).expand(total_selected_num,total_selected_num)]         
+        print('selected_pairs.size:', selected_pairs.size())
         selected_th=np.quantile(temp_graph[selected_pairs],args.beta)
-        print('selected_th',selected_th)
-        temp = torch.zeros(total_num,total_num).type(torch.uint8)
+        print('selected_th', selected_th)
+        temp = torch.zeros(total_num, total_num).type(torch.uint8)
         noisy_pairs = torch.where(smiliar_graph_all<selected_th,temp,noisy_pairs.type(torch.uint8)).type(torch.bool)
         noisy_pairs[index_selected.unsqueeze(1).expand(total_selected_num,total_selected_num),index_selected.unsqueeze(0).expand(total_selected_num,total_selected_num)] = selected_pairs
         final_selected_pairs = noisy_pairs                  
