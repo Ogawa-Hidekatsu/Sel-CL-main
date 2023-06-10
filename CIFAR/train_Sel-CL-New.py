@@ -108,7 +108,7 @@ def parse_args():
     parser.add_argument('--device', default='cpu',
                         help='device to use for training / testing (cpu, or cuda:1, default: cpu)')
     # poison settings
-    parser.add_argument('--poisoning_rate', type=float, default=0.1,
+    parser.add_argument('--poisoning_rate', type=float, default=0.3,
                         help='poisoning portion (float, range from 0 to 1, default: 0.1)')
     parser.add_argument('--trigger_label', type=int, default=1,
                         help='The NO. of trigger label (int, range from 0 to 10, default: 0)')
