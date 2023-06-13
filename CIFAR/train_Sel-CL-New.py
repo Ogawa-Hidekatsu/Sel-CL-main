@@ -297,7 +297,7 @@ def main(args):
                                                                                 best_acc5 * 100))
 
         if (epoch % 10 == 0):
-            save_model(model, optimizer, args, epoch, exp_path + "/Sel-CL_model.pth")
+            save_model(model, optimizer, args, epoch, exp_path + "/Sel-CL_model_"+args.dataset +"_"+ str(args.poisoning_rate) +".pth")
             np.save(res_path + '/' + 'selected_examples_train.npy', selected_examples.data.cpu().numpy())
 
         log_file.flush()

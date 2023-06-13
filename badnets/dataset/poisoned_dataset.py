@@ -18,6 +18,8 @@ class TriggerHandler(object):
 
     def put_trigger(self, img):
         img.paste(self.trigger_img, (self.img_width - self.trigger_size, self.img_height - self.trigger_size))
+        # img1 = Image.fromarray(img)
+        img.save('/home/shixiong22/code/Sel-CL-main/badnets/t.jpg')
         return img
 
 class CIFAR10Poison(tv.datasets.CIFAR10):
@@ -112,8 +114,8 @@ class CIFAR10Poison(tv.datasets.CIFAR10):
                 target = self.target_transform(target)
 
             return img, target
+        ################# Random in-distribution noise #########################
 
-    ################# Random in-distribution noise #########################
     def random_in_noise(self):
         # to be more equal, every category can be processed separately
         np.random.seed(self.args.seed_dataset)
@@ -144,6 +146,51 @@ class CIFAR10Poison(tv.datasets.CIFAR10):
         print('clean_num', sum(self.noisy_labels == self.clean_labels))
 
     ##########################################################################
+
+class CIFAR10Poison_original(CIFAR10):
+
+    def __init__(
+            self,
+            args,
+            root: str,
+            train: bool = True,
+            transform: Optional[Callable] = None,
+            target_transform: Optional[Callable] = None,
+            download: bool = False,
+    ) -> None:
+        super().__init__(root, train=train, transform=transform, target_transform=target_transform,
+                         download=download)
+
+        self.width, self.height, self.channels = self.__shape_info__()
+
+        self.trigger_handler = TriggerHandler(args.trigger_path, args.trigger_size, args.trigger_label, self.width,
+                                              self.height)
+        self.poisoning_rate = args.poisoning_rate if train else 1.0
+        indices = range(len(self.targets))
+        self.poi_indices = random.sample(indices, k=int(len(indices) * self.poisoning_rate))
+        print(f"Poison {len(self.poi_indices)} over {len(indices)} samples ( poisoning rate {self.poisoning_rate})")
+
+    def __shape_info__(self):
+        return self.data.shape[1:]
+
+    def __getitem__(self, index):
+        img, target = self.data[index], self.targets[index]
+        img = Image.fromarray(img)
+        # NOTE: According to the threat model, the trigger should be put on the image before transform.
+        # (The attacker can only poison the dataset)
+        if index in self.poi_indices:
+            target = self.trigger_handler.trigger_label
+            img = self.trigger_handler.put_trigger(img)
+
+        if self.transform is not None:
+            img = self.transform(img)
+
+        if self.target_transform is not None:
+            target = self.target_transform(target)
+
+        return img, target
+
+
 
 
 class MNISTPoison(MNIST):

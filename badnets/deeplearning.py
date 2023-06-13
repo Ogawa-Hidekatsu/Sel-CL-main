@@ -1,7 +1,7 @@
 import torch
 from sklearn.metrics import accuracy_score, classification_report
 from tqdm import tqdm
-
+import torch.nn.functional as F
 
 def optimizer_picker(optimization, param, lr):
     if optimization == 'adam':
@@ -53,9 +53,13 @@ def eval(data_loader, model, device, batch_size=64, print_perform=False):
         batch_x = batch_x.to(device, non_blocking=True)
         batch_y = batch_y.to(device, non_blocking=True)
 
-        batch_y_predict = model(batch_x)
+        batch_y_predict = model(batch_x)[0]
         loss = criterion(batch_y_predict, batch_y)
         batch_y_predict = torch.argmax(batch_y_predict, dim=1)
+        # batch_y_predict, _ = model(batch_x)
+        # batch_y_predict = F.log_softmax(batch_y_predict, dim=1)
+        # loss = criterion(batch_y_predict, batch_y)
+        # batch_y_predict = batch_y_predict.max(1, keepdim=True)[1]
         y_true.append(batch_y)
         y_predict.append(batch_y_predict)
         loss_sum.append(loss.item())

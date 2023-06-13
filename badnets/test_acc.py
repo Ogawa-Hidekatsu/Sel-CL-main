@@ -2,6 +2,7 @@ import argparse
 import os
 import pathlib
 import re
+import sys
 import time
 import datetime
 
@@ -9,11 +10,12 @@ import pandas as pd
 import torch
 from torch.utils.data import DataLoader
 
-from dataset import build_poisoned_training_set, build_testset
+from dataset import *
 from deeplearning import evaluate_badnets, optimizer_picker, train_one_epoch
-from models import BadNet
+# from models import BadNet
 
-from utils.models import PreActResNet18
+
+from models.preact_resnet import *
 
 parser = argparse.ArgumentParser(
     description='Reproduce the basic backdoor attack in "Badnets: Identifying vulnerabilities in the machine learning model supply chain".')
@@ -33,14 +35,18 @@ parser.add_argument('--data_path', default='./data/', help='Place to load datase
 parser.add_argument('--device', default='cpu',
                     help='device to use for training / testing (cpu, or cuda:1, default: cpu)')
 # poison settings
-parser.add_argument('--poisoning_rate', type=float, default=0.1,
+parser.add_argument('--poisoning_rate', type=float, default=1,
                     help='poisoning portion (float, range from 0 to 1, default: 0.1)')
 parser.add_argument('--trigger_label', type=int, default=1,
                     help='The NO. of trigger label (int, range from 0 to 10, default: 0)')
 parser.add_argument('--trigger_path', default="../badnets/triggers/trigger_white.png",
                     help='Trigger Path (default: ./triggers/trigger_white.png)')
 parser.add_argument('--trigger_size', type=int, default=5, help='Trigger Size (int, default: 5)')
-
+parser.add_argument('--train_root', default='./data', help='root for train data')
+parser.add_argument('--num_classes', type=int, default=10, help='Number of in-distribution classes')
+parser.add_argument('--noise_ratio', type=float, default=0.4, help='percent of noise')
+parser.add_argument('--low_dim', type=int, default=128, help='Size of contrastive learning embedding')
+parser.add_argument('--headType', type=str, default="Linear", help='Linear, NonLinear')
 args = parser.parse_args()
 
 
@@ -58,8 +64,8 @@ def main():
     pathlib.Path("./logs/").mkdir(parents=True, exist_ok=True)
 
     print("\n# load dataset: %s " % args.dataset)
-    dataset_train, args.nb_classes = build_poisoned_training_set(is_train=True, args=args)
-    dataset_val_clean, dataset_val_poisoned = build_testset(is_train=False, args=args)
+    dataset_train, args.nb_classes = build_poisoned_training_set_original(is_train=True, args=args)
+    dataset_val_clean, dataset_val_poisoned = build_testset_original(is_train=False, args=args)
 
     data_loader_train = DataLoader(dataset_train, batch_size=args.batch_size, shuffle=True,
                                    num_workers=args.num_workers)
@@ -69,14 +75,14 @@ def main():
                                           num_workers=args.num_workers)  # shuffle 随机化
 
     model = PreActResNet18(num_classes=args.num_classes, low_dim=args.low_dim, head=args.headType).to(device)
-    # criterion = torch.nn.CrossEntropyLoss()
-    # optimizer = optimizer_picker(args.optimizer, model.parameters(), lr=args.lr)
+    criterion = torch.nn.CrossEntropyLoss()
+    optimizer = optimizer_picker(args.optimizer, model.parameters(), lr=args.lr)
 
-    basic_model_path = "./checkpoints/Sel-CL_model_CIFAR_0.1.pth"
+    basic_model_path = "./checkpoints/Sel-CL_model_CIFAR_0.3.pth"
     start_time = time.time()
     if args.load_local:
         print("## Load model from : %s" % basic_model_path)
-        model.load_state_dict(torch.load(basic_model_path), strict=True)
+        model.load_state_dict(torch.load(basic_model_path), strict=False)
         test_stats = evaluate_badnets(data_loader_val_clean, data_loader_val_poisoned, model, device)
         print(f"Test Clean Accuracy(TCA): {test_stats['clean_acc']:.4f}")
         print(f"Attack Success Rate(ASR): {test_stats['asr']:.4f}")
