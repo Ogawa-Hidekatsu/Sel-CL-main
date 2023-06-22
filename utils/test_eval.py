@@ -18,6 +18,7 @@ def test_eval(args, model, device, test_loader):
                 output, _ = model(data)
             except:
                 output = model(data)
+            # output=torch.argmax(output, dim=1)
             output = F.log_softmax(output, dim=1)
             test_loss += F.nll_loss(output, target, reduction='sum').item()
             loss_per_batch.append(F.nll_loss(output, target).item())

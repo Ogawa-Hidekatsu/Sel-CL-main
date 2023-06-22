@@ -35,7 +35,7 @@ import sys, yaml, os
 sys.path.append('../')
 import re
 import pathlib
-from badnets.dataset import build_poisoned_training_set, build_testset
+from badnets.dataset import build_poisoned_training_set, build_testset, build_testset_original
 from torch.utils.data import DataLoader
 def parse_args():
     parser = argparse.ArgumentParser(description='command for the first train')
@@ -108,7 +108,7 @@ def parse_args():
     parser.add_argument('--device', default='cpu',
                         help='device to use for training / testing (cpu, or cuda:1, default: cpu)')
     # poison settings
-    parser.add_argument('--poisoning_rate', type=float, default=0.3,
+    parser.add_argument('--poisoning_rate', type=float, default=0.05,
                         help='poisoning portion (float, range from 0 to 1, default: 0.1)')
     parser.add_argument('--trigger_label', type=int, default=1,
                         help='The NO. of trigger label (int, range from 0 to 10, default: 0)')
@@ -136,7 +136,7 @@ def Generate(transform_train, transform_test):
 
     print("\n# load dataset: %s " % args.dataset)
     dataset_train, args.nb_classes = build_poisoned_training_set(is_train=True, args=args, transform_train=transform_train, transform_test=transform_test)
-    dataset_val_clean, dataset_val_poisoned = build_testset(is_train=False, args=args, transform_train=transform_train, transform_test=transform_test)
+    dataset_val_clean, dataset_val_poisoned = build_testset_original(is_train=False, args=args)
 
     data_loader_train = DataLoader(dataset_train, batch_size=args.batch_size, shuffle=True,
                                    num_workers=args.num_workers, pin_memory=True)

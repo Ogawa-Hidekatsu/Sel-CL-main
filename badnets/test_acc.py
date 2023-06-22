@@ -78,11 +78,12 @@ def main():
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = optimizer_picker(args.optimizer, model.parameters(), lr=args.lr)
 
-    basic_model_path = "./checkpoints/Sel-CL_model_CIFAR_0.3.pth"
+    basic_model_path = "./checkpoints/Sel-CL_model_CIFAR_0.3_plus.pth"
     start_time = time.time()
     if args.load_local:
         print("## Load model from : %s" % basic_model_path)
-        model.load_state_dict(torch.load(basic_model_path), strict=False)
+        model.load_state_dict(torch.load(basic_model_path).get("model"), strict=True)
+        # model.training=False
         test_stats = evaluate_badnets(data_loader_val_clean, data_loader_val_poisoned, model, device)
         print(f"Test Clean Accuracy(TCA): {test_stats['clean_acc']:.4f}")
         print(f"Attack Success Rate(ASR): {test_stats['asr']:.4f}")
